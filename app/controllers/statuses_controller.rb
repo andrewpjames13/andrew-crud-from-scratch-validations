@@ -11,7 +11,7 @@ class StatusesController < ApplicationController
   def create
     @status = Status.new(status_params)
     if @status.save
-      redirect_to new_status_path
+      redirect_to new_status_path, notice: "Project was Created"
     else
       render :new
     end
@@ -23,6 +23,9 @@ class StatusesController < ApplicationController
 
   def update
     @status = Status.find(params[:id])
+    if @status.update(status_params)
+      redirect_to statuses_path, notice: "Project was Updated"
+    end
   end
 
   def show
@@ -31,6 +34,9 @@ class StatusesController < ApplicationController
 
   def destroy
     @status = Status.find(params[:id])
+    if @status.destroy
+      redirect_to statuses_path, notice:"Project was Deleted"
+    end
   end
 
   def like
