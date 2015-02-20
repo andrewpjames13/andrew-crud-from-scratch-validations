@@ -11,7 +11,7 @@ class StatusesController < ApplicationController
   def create
     @status = Status.new(status_params)
     if @status.save
-      redirect_to new_status_path, notice: "Project was Created"
+      redirect_to statuses_path, notice: "Project was Created"
     else
       render :new
     end
