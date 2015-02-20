@@ -1,6 +1,10 @@
-<%= if @statuses.each do |status| %>
+<% @statuses.each do |status| %>
+  <p>
   <%= status.status %>
-  <%= status.user %>
-  <%= status.likes %>
-<% end %>
-<% end %>
+    <%= status.user %>
+    <%= button_to "like", like_path(:id => status.id), method: :get %>
+    <%= status.likes %>
+    <%= link_to 'Edit', status_path(status) %>
+    <%= link_to 'Delete', status, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+  </p>

@@ -1,7 +1,7 @@
 class StatusesController < ApplicationController
 
   def index
-    @statuses = Status.all
+    @statuses = Status.all.order(:id)
   end
 
   def new
@@ -17,7 +17,34 @@ class StatusesController < ApplicationController
     end
   end
 
+  def edit
+    @status = Status.find(params[:id])
+  end
+
+  def update
+    @status = Status.find(params[:id])
+  end
+
   def show
+    @status = Status.find(params[:id])
+  end
+
+  def destroy
+    @status = Status.find(params[:id])
+  end
+
+  def like
+    @status = Status.find(params[:id])
+
+    if @status.likes.nil?
+      @status.likes = 0
+    end
+
+    @status.likes += 1
+
+    @status.save
+    redirect_to statuses_path
+
   end
 
   private
@@ -25,5 +52,7 @@ class StatusesController < ApplicationController
   def status_params
     params.require(:status).permit(:status, :user, :likes)
   end
+
+
 
 end
